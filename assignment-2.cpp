@@ -1,20 +1,23 @@
-// PHYS30762 Object-oriented programming in C++
-// Assignment 2
+/*
+________________TITLE_______________________
+PHYS30762 Assignment 2 - Course Marks Data
+____________________________________________
+This C++ script reads data from a file containing course grades,
+and calculates the mean, standard deviation and standard error 
+of the grades.
 
-// Program to compute mean, standard deviation and standard
-// error of the a set of courses. Data is read from file
-
-// Skeleton code
+Created by Kuba Kane (ID: 11019699)
+Created on Tue 24 Feb 2026
+Last updated on XX XX Feb 2026
+*/
 
 #include<iostream>
 #include<iomanip>
 #include<fstream>
 #include<cmath>
 
-// Functions to compute mean, standard deviation or for other tasks.
 
 // Main function
-
 int main()
 {
   // Define variables
