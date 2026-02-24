@@ -14,7 +14,9 @@ Last updated on XX XX Feb 2026
 #include<iostream> //input output stream
 #include<fstream> //file stream
 #include<string> //to use C++ strings
+#include<vector> //to use vectors
 using std::string;
+using std::vector;
 
 //Constants
 
@@ -22,9 +24,10 @@ using std::string;
 int main()
 {
   //Variables
-  string full_list;
-  string my_data; //string called "my_data" to store all data in file
-  int counter{0}; //counter initialised at 0
+  vector<double> marks; //vector "marks" with entries of type double
+  double mark; //vector "mark" of type double
+  int course_code; //integer "course_code"
+  string course_name; 
 
   //Read in data file
   std::ifstream read_file("course_marks.dat");
@@ -36,6 +39,7 @@ int main()
     return(1);
   }
 
+  //Read the file line by line
 
 
 
