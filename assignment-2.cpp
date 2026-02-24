@@ -15,6 +15,7 @@ Last updated on XX XX Feb 2026
 #include<fstream> //file stream
 #include<string> //to use C++ strings
 #include<vector> //to use vectors
+#include<sstream>
 using std::string;
 using std::vector;
 
@@ -24,10 +25,13 @@ using std::vector;
 int main()
 {
   //Variables
-  vector<double> marks; //vector "marks" with entries of type double
-  double mark; //vector "mark" of type double
-  int course_code; //integer "course_code"
+  vector<double> marks; //vector "marks" to store all of the marks in the file
+  double mark; //vector "mark" to store each mark
+  int course_code;
   string course_name; 
+  string line; //string to read in one line from the data file
+  int counter{0}; //counter intitialised at 0
+  string full_list; //stores user choice "y" or "n" to print full list
 
   //Read in data file
   std::ifstream read_file("course_marks.dat");
@@ -40,9 +44,43 @@ int main()
   }
 
   //Read the file line by line
+  while (getline(read_file, line)) //getline(source, destination)
+  {
+      counter++; //increment counter by 1
 
+      std::stringstream ss(line); //create string stream called ss and initialise it with "line"
+      ss>>mark>>course_code; //up to first space of ss stored in "mark", up to second space stored in "course_code"
+      getline(ss>>std::ws, course_name); //assign last part of ss to course_name, removing blank space using "ws"
 
+      marks.push_back(mark); //add each mark to vector "marks"
+  }
+  
+  read_file.close();
 
-  std::cout<<"\nThe number of data entries in the file is "<<counter<<std::endl;
+  //Print out number of data entries in file
+  std::cout<<"The number of data entries in the file is "<<counter<<std::endl;
+
+  //Ask user if all marks should be printed
+  std::cout<<"Do you want to print out the full list of marks (y/n)? ";
+  std::cin>>full_list;
+
+  //Loop to ask for input again if input is not "y" or "n" (or contains extra characters)
+  while(full_list!="y" && full_list!="n" || std::cin.peek() != '\n') 
+  {
+    std::cout<<" Enter only 'y' or 'n'. Try again: ";
+    std::cin.ignore(1000, '\n');
+    std::cin>>full_list;
+  }
+
+  //Print out full list of marks
+  if(full_list=="y")
+  {
+    std::cout<<"\nList of all marks: "<<std::endl;
+    for(size_t i{0}; i<marks.size(); i++)
+    {
+      std::cout<<marks[i]<<std::endl;
+    }
+  }
+
   return 0;
 }
