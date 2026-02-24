@@ -11,9 +11,9 @@ Created on Tue 24 Feb 2026
 Last updated on XX XX Feb 2026
 */
 
-#include<iostream>
-#include<fstream>
-#include<string>
+#include<iostream> //input output stream
+#include<fstream> //file stream
+#include<string> //to use C++ strings
 using std::string;
 
 //Constants
@@ -26,7 +26,12 @@ int main()
 
   std::ifstream read_file("course_marks.dat"); //reads in file
 
-  //Errors in opening file
+  //Check if file opened correctly
+  if(!read_file.good())
+  {
+    std::cerr<<"Error: File could not be opened"<<std::endl;
+    return(1);
+  }
   
   string my_data; //define a string called "my_data" to store all data in file
   int counter{0}; //define a counter & initialise it at 0
@@ -49,6 +54,13 @@ int main()
     if(full_list=="y")
     {
       std::cout<<my_data<<std::endl;
+
+      //Check if there was a read error
+      if(read_file.fail())
+      {
+        std::cerr<<"Error: Could not read data from file"<<std::endl;
+        return(1);
+      }
     }
   }
 
