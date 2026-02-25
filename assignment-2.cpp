@@ -16,6 +16,7 @@ Last updated on XX XX Feb 2026
 #include<string> //to use C++ strings
 #include<vector> //to use vectors
 #include<sstream>
+#include<cmath>
 using std::string;
 using std::vector;
 
@@ -72,6 +73,7 @@ int main()
     std::cin>>full_list;
   }
 
+
   //Print out full list of marks
   if(full_list=="y")
   {
@@ -81,6 +83,34 @@ int main()
       std::cout<<marks[i]<<std::endl;
     }
   }
+
+
+  //Compute mean
+  double sum{0.0};
+  for(size_t j{0}; j < counter; j++)
+  {
+    sum += marks[j]; //add marks[j] to sum for each j
+  }
+  double mean{sum / counter};
+  std::cout<<"\nMean of all marks = "<<mean<<std::endl;
+
+
+  //Compute standard deviation
+  double variance_sum{0.0};
+  for(size_t k{0}; k < counter; k++)
+  {
+    double difference = marks[k] - mean;
+    variance_sum += difference*difference;
+  }
+  double standard_deviation{std::sqrt(variance_sum / (counter-1))};
+  std::cout<<"Standard deviation of all marks = "<<standard_deviation<<std::endl;
+
+
+  //Compute standard error
+  double standard_error{standard_deviation / (std::sqrt(counter))};
+  std::cout<<"Standard error of all marks = "<<standard_error<<std::endl;
+
+  //List of marks for a year (DEFINE MEAN, STAND DEV, STAND ERROR SEPARATELY)
 
   return 0;
 }
