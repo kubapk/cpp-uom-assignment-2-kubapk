@@ -56,11 +56,15 @@ double compute_standard_error(double standard_deviation, int length)
 }
 
 //Function to check if output is y or n
-void output_check()
+void output_check(string* input_ptr) //takes in pointer which points to a string
 {
-  
+  while(*input_ptr!="y" && *input_ptr!="n" || std::cin.peek() != '\n') 
+  {
+    std::cout<<" Enter only 'y' or 'n'. Try again: ";
+    std::cin.ignore(1000, '\n');
+    std::cin>>*input_ptr;
+  }
 } 
-
 
 
 int main()
@@ -115,12 +119,7 @@ int main()
   std::cin>>full_list;
 
   //Loop to ask for input again if input is not "y" or "n" (or contains extra characters)
-  while(full_list!="y" && full_list!="n" || std::cin.peek() != '\n') 
-  {
-    std::cout<<" Enter only 'y' or 'n'. Try again: ";
-    std::cin.ignore(1000, '\n');
-    std::cin>>full_list;
-  }
+  output_check(&full_list);
 
   //Print out full list of marks
   if(full_list=="y")
@@ -189,14 +188,8 @@ int main()
   std::cout<<"Do you want to order the displayed data by course name (y/n)? ";
   std::cin>>order_data;
 
-  //THIS HAS BEEN REUSED SO PLEASE PUT IT AS A FUNCTION WHICH JUST TAKES ON PARAMETER TO CHECK
   //Loop to ask for input again if input is not "y" or "n" (or contains extra characters)
-  while(order_data!="y" && order_data!="n" || std::cin.peek() != '\n') 
-  {
-    std::cout<<" Enter only 'y' or 'n'. Try again: ";
-    std::cin.ignore(1000, '\n');
-    std::cin>>order_data;
-  }
+  output_check(&order_data);
 
   return 0;
 }
