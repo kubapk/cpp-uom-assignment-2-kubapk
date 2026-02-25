@@ -2,18 +2,10 @@
 # PHYS30762 Assignment 2 - Course Marks Data
 
 ### Compilation Guidlines
-The source file is `assignment-1.cpp`. This code was run on VSC on a Windows 11 device, using the compilation command `g++ assignment-2.cpp -o assignment-2.exe`
+The source file is `assignment-2.cpp`. This code was run on VSC on a Windows 11 device, using the compilation line `g++ assignment-2.cpp -o assignment-2.exe`
 
 ### Program Reasoning
- - `valid_int_input()` was a function introduced to avoid repeating while loops (for the atomic number and quantum numbers). It creates a generic variable whose validity is then checked. This function orginally used `while(true)` and then `if` commands, which broke down when the user entered, for example, "5.5" (where .5 was taken to be the users input on the next run of `valid_int_input()`). To avoid this a `while` loop was used directly. `std::cin.ignore(1000, '\n')` prevents .5 being taken to the next user input.
-
- - `photon_energy(double Z, double n_i, double n_j)` orginally used `x**5` which does not work in C++, so `pow(x,y)` was used to give x^y.
-
- - `energy_unit` and `repeat` variables did not use `valid_int_input()` as they are of type string, and have their own validation requirements (i.e. if not "J" or "eV" and "y" or "n" respectively, user is asked to input again)
-
- - Checks are made to disallow a final quantum number greater than the initial one, and also if they are equal a message is outputted to make the user aware of the non-physicality of such a transition.
-
- - `std::cin.peek() != '\n'` needed to be added in while loop validation checks in later versions to prevent users from entering, e.g. "y n" when asked if they want to repeat (which also resulted in carrying over "n" in the input buffer).
+ - TBC
 
 
 
@@ -22,9 +14,11 @@ The author (Kuba Kane) declares the use of generative AI in the research and cod
 
 The following tasks were delegated to GAI tools under full human supervision:
 
-- Code optimisation (to seek methods to reduce amount of repeated code)
-- Code generation (to seek alternatives to author-written code)
-- Idea generation (to see ways of validating inputs)
+- Code optimisation 
+ - *GAI suggested alternatives for finding number of data entries*
+- Idea generation 
+ - *GAI suggested ways of handling additional whitespace in front of course names in `course_marks.dat`, i.e. string stream and ws*
+ - *GAI suggested ways of returning all fields once filtered data was sorted by course name, i.e. lambda function*
 
 The GAI tool used for these tasks was: ChatGPT-5.2.
 

@@ -18,6 +18,7 @@ Last updated on XX XX Feb 2026
 #include<sstream>
 #include<cmath>
 #include<algorithm> // enables sort & reverse
+#include <numeric> //to use iota
 using std::string;
 using std::vector;
 
@@ -201,22 +202,26 @@ int main()
   //Sort data
   if(order_data == "y")
   {
-    //Create new 
-    //define start and end of iterator
-    std::vector<string>::iterator vector_begin{filtered_course_names.begin()}; //creates iterator of strings
-    std::vector<string>::iterator vector_end{filtered_course_names.end()};
+    //Create new vector storing indices of filtered data
+    vector<size_t> indices(filtered_course_names.size());
+    // Assign increasing values starting from 0
+    std::iota(indices.begin(), indices.end(), 0);
 
-    //define iterator used in loop
-    std::vector<string>::iterator vector_iterator;
-
-    //sort
-    sort(vector_begin, vector_end);
+    //Swap order of indices so that course names are alphabetical 
+    std::sort(indices.begin(), indices.end(),
+          [&](size_t a, size_t b)
+          {
+              return filtered_course_names[a] < filtered_course_names[b];
+          });
+    //a and b are all pairs of elements in "indices"
+    //[&] defines lambda function which enables comparison of filtered_course_names
+    //if returns false, sort swaps the indices
 
     //print out data in order
-    for(vector_iterator=vector_begin;
-        vector_iterator<vector_end;
-        ++vector_iterator)
-        std::cout<<*vector_iterator<<std::endl;
+    for(size_t i{0}; i<indices.size(); i++)
+    {
+      std::cout<<filtered_marks[indices[i]]<<"   "<<filtered_course_codes[indices[i]]<<"   "<<filtered_course_names[indices[i]]<<std::endl;
+    }
 
   }
 
