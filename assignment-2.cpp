@@ -55,18 +55,31 @@ double compute_standard_error(double standard_deviation, int length)
   return standard_deviation / (std::sqrt(length));
 }
 
+//Function to check if output is y or n
+void output_check()
+{
+  
+} 
+
+
 
 int main()
 {
   //Variables
   vector<double> marks; //vector "marks" to store all of the marks in the file
   double mark; //vector "mark" to store each mark
-  int course_code;
+  string course_code;
   string course_name; 
   string line; //string to read in one line from the data file
   int counter{0}; //counter intitialised at 0
   string full_list; //stores user choice "y" or "n" to print full list
   string year; //year to print out data for
+  vector<string> course_codes;
+  vector<string> course_names;
+  vector<double> filtered_marks;
+  vector<int> filter_address;
+  string order_data;
+  vector<string> filtered_course_names;
 
   //Read in data file
   std::ifstream read_file("course_marks.dat");
@@ -88,6 +101,8 @@ int main()
       getline(ss>>std::ws, course_name); //assign last part of ss to course_name, removing blank space using "ws"
 
       marks.push_back(mark); //add each mark to vector "marks"
+      course_codes.push_back(course_code); //add each code to vector "course_codes"
+      course_names.push_back(course_name); //add eachc course name to vector "course_names"
   }
   
   read_file.close();
@@ -106,7 +121,6 @@ int main()
     std::cin.ignore(1000, '\n');
     std::cin>>full_list;
   }
-
 
   //Print out full list of marks
   if(full_list=="y")
@@ -131,8 +145,8 @@ int main()
   double total_standard_error{compute_standard_error(total_standard_deviation, counter)};
   std::cout<<"Standard error of all marks = "<<total_standard_error<<std::endl;
 
-  //List of marks for a year (DEFINE MEAN, STAND DEV, STAND ERROR SEPARATELY)
-  std::cout<<"Enter an academic year (1, 2, 3, or 4) to print the marks for: ";
+  //Ask user for year to display marks
+  std::cout<<"\nEnter an academic year (1, 2, 3, or 4) to print the marks for: ";
   std::cin>>year;
 
   //Loop to ask for input again if input is not "y" or "n" (or contains extra characters)
@@ -141,6 +155,47 @@ int main()
     std::cout<<" Enter only '1', '2', '3', or '4'. Try again: ";
     std::cin.ignore(1000, '\n');
     std::cin>>year;
+  }
+
+  //Get list of course codes for given year
+  for(size_t l{0}; l<counter; l++)
+  {
+    if(course_codes[l][0] == year[0])
+    {
+      filter_address.push_back(l);
+    }
+  }
+
+  std::cout<<"Marks for year "<<year<<": "<<std::endl;
+  for(size_t h{0}; h<filter_address.size(); h++)
+  {
+    filtered_marks.push_back(marks[filter_address[h]]);
+    std::cout<<marks[filter_address[h]]<<std::endl;
+  }
+
+  //Compute mean for given year
+  double filtered_mean{compute_mean(filtered_marks, filtered_marks.size())};
+  std::cout<<"\nMean of year "<<year<<" marks = "<<filtered_mean<<std::endl;
+
+  //Compute standard deviation
+  double filtered_standard_deviation{compute_stan_dev(filtered_marks, filtered_marks.size(), filtered_mean)};
+  std::cout<<"Standard deviation of year "<<year<<" marks = "<<filtered_standard_deviation<<std::endl;
+
+  //Compute standard error
+  double filtered_standard_error{compute_standard_error(filtered_standard_deviation, filtered_marks.size())};
+  std::cout<<"Standard error of year "<<year<<" marks = "<<filtered_standard_error<<std::endl;
+
+  //Ask user where to order data
+  std::cout<<"Do you want to order the displayed data by course name (y/n)? ";
+  std::cin>>order_data;
+
+  //THIS HAS BEEN REUSED SO PLEASE PUT IT AS A FUNCTION WHICH JUST TAKES ON PARAMETER TO CHECK
+  //Loop to ask for input again if input is not "y" or "n" (or contains extra characters)
+  while(order_data!="y" && order_data!="n" || std::cin.peek() != '\n') 
+  {
+    std::cout<<" Enter only 'y' or 'n'. Try again: ";
+    std::cin.ignore(1000, '\n');
+    std::cin>>order_data;
   }
 
   return 0;
