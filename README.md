@@ -15,10 +15,10 @@ The author (Kuba Kane) declares the use of generative AI in the research and cod
 The following tasks were delegated to GAI tools under full human supervision:
 
 - Code optimisation 
- - *GAI suggested alternatives for finding number of data entries*
+  - *GAI suggested alternatives for finding number of data entries*
 - Idea generation 
- - *GAI suggested ways of handling additional whitespace in front of course names in `course_marks.dat`, i.e. string stream and ws*
- - *GAI suggested ways of returning all fields once filtered data was sorted by course name, i.e. lambda function*
+  - *GAI suggested ways of handling additional whitespace in front of course names in `course_marks.dat`, i.e. string stream and ws*
+  - *GAI suggested ways of returning all fields once filtered data was sorted by course name, i.e. lambda function*
 
 The GAI tool used for these tasks was: ChatGPT-5.2.
 
