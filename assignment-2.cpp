@@ -22,6 +22,39 @@ using std::vector;
 
 //Constants
 
+//Function to calculate mean
+double compute_mean(vector<double> entries, int length)
+{
+  double sum{0.0};
+  for(size_t j{0}; j < length; j++)
+  {
+    sum += entries[j]; //add entries[j] to sum for each j
+  }
+  double mean{sum / length};
+  return mean;
+}
+
+
+//Function to calculate standard deviation
+double compute_stan_dev(vector<double> entries, int length, double mean)
+{
+  double variance_sum{0.0};
+  for(size_t k{0}; k < length; k++)
+  {
+    double difference = entries[k] - mean;
+    variance_sum += difference*difference;
+  }
+  double standard_deviation{std::sqrt(variance_sum / (length-1))};
+  return standard_deviation;
+}
+
+
+//Function to calculate standard error
+double compute_standard_error(double standard_deviation, int length)
+{
+  return standard_deviation / (std::sqrt(length));
+}
+
 
 int main()
 {
@@ -33,6 +66,7 @@ int main()
   string line; //string to read in one line from the data file
   int counter{0}; //counter intitialised at 0
   string full_list; //stores user choice "y" or "n" to print full list
+  string year; //year to print out data for
 
   //Read in data file
   std::ifstream read_file("course_marks.dat");
@@ -82,35 +116,32 @@ int main()
     {
       std::cout<<marks[i]<<std::endl;
     }
+    std::cout<<std::endl;
   }
-
 
   //Compute mean
-  double sum{0.0};
-  for(size_t j{0}; j < counter; j++)
-  {
-    sum += marks[j]; //add marks[j] to sum for each j
-  }
-  double mean{sum / counter};
-  std::cout<<"\nMean of all marks = "<<mean<<std::endl;
-
+  double total_mean{compute_mean(marks, counter)};
+  std::cout<<"Mean of all marks = "<<total_mean<<std::endl;
 
   //Compute standard deviation
-  double variance_sum{0.0};
-  for(size_t k{0}; k < counter; k++)
-  {
-    double difference = marks[k] - mean;
-    variance_sum += difference*difference;
-  }
-  double standard_deviation{std::sqrt(variance_sum / (counter-1))};
-  std::cout<<"Standard deviation of all marks = "<<standard_deviation<<std::endl;
-
+  double total_standard_deviation{compute_stan_dev(marks, counter, total_mean)};
+  std::cout<<"Standard deviation of all marks = "<<total_standard_deviation<<std::endl;
 
   //Compute standard error
-  double standard_error{standard_deviation / (std::sqrt(counter))};
-  std::cout<<"Standard error of all marks = "<<standard_error<<std::endl;
+  double total_standard_error{compute_standard_error(total_standard_deviation, counter)};
+  std::cout<<"Standard error of all marks = "<<total_standard_error<<std::endl;
 
   //List of marks for a year (DEFINE MEAN, STAND DEV, STAND ERROR SEPARATELY)
+  std::cout<<"Enter an academic year (1, 2, 3, or 4) to print the marks for: ";
+  std::cin>>year;
+
+  //Loop to ask for input again if input is not "y" or "n" (or contains extra characters)
+  while(year!="1" && year!="2" && year!="3" && year!="4" || std::cin.peek() != '\n') 
+  {
+    std::cout<<" Enter only '1', '2', '3', or '4'. Try again: ";
+    std::cin.ignore(1000, '\n');
+    std::cin>>year;
+  }
 
   return 0;
 }
