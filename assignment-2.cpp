@@ -17,6 +17,7 @@ Last updated on XX XX Feb 2026
 #include<vector> //to use vectors
 #include<sstream>
 #include<cmath>
+#include<algorithm> // enables sort & reverse
 using std::string;
 using std::vector;
 
@@ -80,9 +81,12 @@ int main()
   string year; //year to print out data for
   vector<string> course_codes;
   vector<string> course_names;
-  vector<double> filtered_marks;
-  vector<int> filter_address;
   string order_data;
+
+  //Filtered vectors
+  vector<size_t> filter_address; //to store which elements are relevant
+  vector<double> filtered_marks;
+  vector<string> filtered_course_codes;
   vector<string> filtered_course_names;
 
   //Read in data file
@@ -170,6 +174,9 @@ int main()
   {
     filtered_marks.push_back(marks[filter_address[h]]);
     std::cout<<marks[filter_address[h]]<<std::endl;
+
+    filtered_course_names.push_back(course_names[filter_address[h]]);
+    filtered_course_codes.push_back(course_codes[filter_address[h]]);
   }
 
   //Compute mean for given year
@@ -184,12 +191,34 @@ int main()
   double filtered_standard_error{compute_standard_error(filtered_standard_deviation, filtered_marks.size())};
   std::cout<<"Standard error of year "<<year<<" marks = "<<filtered_standard_error<<std::endl;
 
-  //Ask user where to order data
-  std::cout<<"Do you want to order the displayed data by course name (y/n)? ";
+  //Ask user whether to order data or not
+  std::cout<<"\nDo you want to order the year "<<year<<" marks by course name (y/n)? ";
   std::cin>>order_data;
 
   //Loop to ask for input again if input is not "y" or "n" (or contains extra characters)
   output_check(&order_data);
+
+  //Sort data
+  if(order_data == "y")
+  {
+    //Create new 
+    //define start and end of iterator
+    std::vector<string>::iterator vector_begin{filtered_course_names.begin()}; //creates iterator of strings
+    std::vector<string>::iterator vector_end{filtered_course_names.end()};
+
+    //define iterator used in loop
+    std::vector<string>::iterator vector_iterator;
+
+    //sort
+    sort(vector_begin, vector_end);
+
+    //print out data in order
+    for(vector_iterator=vector_begin;
+        vector_iterator<vector_end;
+        ++vector_iterator)
+        std::cout<<*vector_iterator<<std::endl;
+
+  }
 
   return 0;
 }
