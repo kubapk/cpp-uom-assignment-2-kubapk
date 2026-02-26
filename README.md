@@ -11,9 +11,11 @@ The source file is `assignment-2.cpp`. This code was run on VSC on a Windows 11 
  - File is read in, and checked if it cannot be opened. While loop is used to read line by line until there are no more lines to read, and mark, course code and course name stored separately.
  - String stream `ss` used to remove blank space in front of course name in file.
  - `counter` used to find number of data entries in the file.
- - User is asked for academic year, and this is compared to first character of course_codes (use year[0] so that it is of type "char" and allows comparison)
- - Mean, standard deviation, standard error is calculated for data within year only.
- - If user requests to order data, a vector of indices is generated to 
+ - User is asked for academic year, and this is compared to first character of course_codes (use year[0] so that it is of type "char" and allows comparison).
+ - Mean, standard deviation, standard error is calculated for data within user-inputted year only.
+ - If user requests to order data, a vector of indices is generated to keep track of the placement of the course names (parameter which is ordered).
+ - A lambda function is used to compare the course names, and switch indices if the order is incorrect. This then gives a list of indices which correspond to the placement of the course names. These indices can be used to print out the marks, course codes and course in an order corresponding to the alphabetical order of the course names.
+ - There was originally a function using `read_file.fail()` to see if there was an error while trying to read a line from the file, but the while loop sorts this out, since it stops once there are no more lines to read.
 
 
 

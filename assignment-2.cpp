@@ -115,14 +115,7 @@ int main()
   }
   
   read_file.close();
-
-  //Check if file was read correctly
-  if(read_file.fail())
-  {
-    std::cerr<<"Error: Could not read data from file"<<std::endl;
-    return(1);
-  }
-
+  
   //Print out number of data entries in file
   std::cout<<"The number of data entries in the file is "<<counter<<std::endl;
 
