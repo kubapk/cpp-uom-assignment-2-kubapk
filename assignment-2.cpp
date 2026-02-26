@@ -101,7 +101,7 @@ int main()
   }
 
   //Read the file line by line
-  while (getline(read_file, line)) //getline(source, destination)
+  while (getline(read_file, line)) //While getline(source, destination) is true, i.e. there is a line to be read
   {
       counter++; //increment counter by 1
 
@@ -115,6 +115,13 @@ int main()
   }
   
   read_file.close();
+
+  //Check if file was read correctly
+  if(read_file.fail())
+  {
+    std::cerr<<"Error: Could not read data from file"<<std::endl;
+    return(1);
+  }
 
   //Print out number of data entries in file
   std::cout<<"The number of data entries in the file is "<<counter<<std::endl;
@@ -217,7 +224,7 @@ int main()
     //[&] defines lambda function which enables comparison of filtered_course_names
     //if returns false, sort swaps the indices
 
-    //print out data in order
+    //Print out data in order
     for(size_t i{0}; i<indices.size(); i++)
     {
       std::cout<<filtered_marks[indices[i]]<<"   "<<filtered_course_codes[indices[i]]<<"   "<<filtered_course_names[indices[i]]<<std::endl;
