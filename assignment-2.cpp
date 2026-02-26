@@ -111,7 +111,7 @@ int main()
 
       marks.push_back(mark); //add each mark to vector "marks"
       course_codes.push_back(course_code); //add each code to vector "course_codes"
-      course_names.push_back(course_name); //add eachc course name to vector "course_names"
+      course_names.push_back(course_name); //add each course name to vector "course_names"
   }
   
   read_file.close();
