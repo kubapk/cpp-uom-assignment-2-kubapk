@@ -2,7 +2,7 @@
 # PHYS30762 Assignment 2 - Course Marks Data
 
 ### Compilation Guidlines
-The source file is `assignment-2.cpp`. This code was run on VSC on a Windows 11 device, using the compilation line `g++ assignment-2.cpp -o assignment-2.exe`
+The source file is `assignment-2.cpp`. This code was run on VSC on a Windows 11 device, using the compilation line `g++ assignment-2.cpp -o assignment-2.exe`.
 
 ### Program Reasoning
  - Separate functions were created to calculate mean, standard deviation and standard error since they were repeated for the full data list and for the filtered data list. They use `for` loops to sum over all of the marks data.
@@ -15,7 +15,7 @@ The source file is `assignment-2.cpp`. This code was run on VSC on a Windows 11 
  - Mean, standard deviation, standard error is calculated for data within user-inputted year only.
  - If user requests to order data, a vector of indices is generated to keep track of the placement of the course names (parameter which is ordered).
  - A lambda function is used to compare the course names, and switch indices if the order is incorrect. This then gives a list of indices which correspond to the placement of the course names. These indices can be used to print out the marks, course codes and course in an order corresponding to the alphabetical order of the course names.
- - There was originally a function using `read_file.fail()` to see if there was an error while trying to read a line from the file, but the while loop sorts this out, since it stops once there are no more lines to read.
+ - There was originally a function using `read_file.fail()` to see if there was an error while trying to read a line from the file, but the while loop sorts this out, since it stops once there are no more lines to read. The function `read_file.fail()` was therefore removed.
 
 
 
@@ -27,7 +27,7 @@ The following tasks were delegated to GAI tools under full human supervision:
 - Code optimisation 
   - *GAI suggested alternatives for finding number of data entries*
 - Idea generation 
-  - *GAI suggested ways of handling additional whitespace in front of course names in `course_marks.dat`, i.e. string stream and ws*
+  - *GAI suggested ways of handling additional whitespace in front of course names in `course_marks.dat`, i.e. string stream and `ws`*
   - *GAI suggested ways of returning all fields once filtered data was sorted by course name, i.e. lambda function `[&]`*
   - *GAI suggested way of generating indices 0 to n for a length-n vector, i.e. `std::iota` function*
 

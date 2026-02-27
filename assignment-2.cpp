@@ -8,7 +8,7 @@ of the grades.
 
 Created by Kuba Kane (ID: 11019699)
 Created on Tue 24 Feb 2026
-Last updated on XX XX Feb 2026
+Last updated on Fri 27 Feb 2026
 */
 
 #include<iostream> //input output stream
@@ -21,8 +21,6 @@ Last updated on XX XX Feb 2026
 #include <numeric> //to use iota
 using std::string;
 using std::vector;
-
-//Constants
 
 //Function to calculate mean
 double compute_mean(const vector<double>& entries, int length)
