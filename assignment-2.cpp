@@ -25,7 +25,7 @@ using std::vector;
 //Constants
 
 //Function to calculate mean
-double compute_mean(vector<double> entries, int length)
+double compute_mean(const vector<double>& entries, int length)
 {
   double sum{0.0};
   for(size_t j{0}; j < length; j++)
@@ -38,8 +38,9 @@ double compute_mean(vector<double> entries, int length)
 
 
 //Function to calculate standard deviation
-double compute_stan_dev(vector<double> entries, int length, double mean)
+double compute_stan_dev(const vector<double>& entries, int length)
 {
+  double mean{compute_mean(entries, length)};
   double variance_sum{0.0};
   for(size_t k{0}; k < length; k++)
   {
@@ -52,8 +53,9 @@ double compute_stan_dev(vector<double> entries, int length, double mean)
 
 
 //Function to calculate standard error
-double compute_standard_error(double standard_deviation, int length)
+double compute_standard_error(const vector<double>& entries, int length)
 {
+  double standard_deviation{compute_stan_dev(entries, length)};
   return standard_deviation / (std::sqrt(length));
 }
 
@@ -142,11 +144,11 @@ int main()
   std::cout<<"Mean of all marks = "<<total_mean<<std::endl;
 
   //Compute standard deviation
-  double total_standard_deviation{compute_stan_dev(marks, counter, total_mean)};
+  double total_standard_deviation{compute_stan_dev(marks, counter)};
   std::cout<<"Standard deviation of all marks = "<<total_standard_deviation<<std::endl;
 
   //Compute standard error
-  double total_standard_error{compute_standard_error(total_standard_deviation, counter)};
+  double total_standard_error{compute_standard_error(marks, counter)};
   std::cout<<"Standard error of all marks = "<<total_standard_error<<std::endl;
 
   //Ask user for year to display marks
@@ -185,11 +187,11 @@ int main()
   std::cout<<"\nMean of year "<<year<<" marks = "<<filtered_mean<<std::endl;
 
   //Compute standard deviation
-  double filtered_standard_deviation{compute_stan_dev(filtered_marks, filtered_marks.size(), filtered_mean)};
+  double filtered_standard_deviation{compute_stan_dev(filtered_marks, filtered_marks.size())};
   std::cout<<"Standard deviation of year "<<year<<" marks = "<<filtered_standard_deviation<<std::endl;
 
   //Compute standard error
-  double filtered_standard_error{compute_standard_error(filtered_standard_deviation, filtered_marks.size())};
+  double filtered_standard_error{compute_standard_error(filtered_marks, filtered_marks.size())};
   std::cout<<"Standard error of year "<<year<<" marks = "<<filtered_standard_error<<std::endl;
 
   //Ask user whether to order data or not
